@@ -13,12 +13,47 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     /* Returns true if the BST contains the given KEY. */
     public boolean contains(T key) {
         // TODO: YOUR CODE HERE: an extra helper method might be useful
-        return false;
+        return contains(key, getRoot());
+    }
+    private boolean contains(T key, BinaryTree.TreeNode<T> root) {
+        // base case: empty tree, return false
+        if (root == null) {
+            return false;
+        }
+        T rootKey = root.getItem();
+        boolean isFoundLeft = false;
+        boolean isFoundRight = false;
+        // if key == single rooted tree key, return true
+        if (key.equals(rootKey)) {
+            return true;
+        } else if ( key.compareTo(rootKey) < 0) {
+            isFoundLeft = contains(key, root.getLeft());
+        } else {
+            isFoundRight = contains(key, root.getRight());
+        }
+
+        return isFoundLeft || isFoundRight;
     }
 
     /* Adds a node for KEY iff KEY isn't in the BST already. */
     public void add(T key) {
         // TODO: YOUR CODE HERE: an extra helper method might be useful
+        root = add(key, getRoot());
+    }
+
+    private TreeNode<T> add(T key, BinaryTree.TreeNode<T> root) {
+        // base case: root is null, so key is the leaf of the original tree
+        if (root == null) {
+            return new TreeNode<>(key);
+        }
+        T rootKey = root.getItem();
+        if ( key.compareTo(rootKey) < 0) {
+            root.left = add(key, root.left);
+        } else {
+            root.right = add(key, root.right);
+        }
+
+        return root;
     }
 
     /* Deletes a node from the BST. 

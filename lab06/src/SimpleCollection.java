@@ -15,6 +15,6 @@ public interface SimpleCollection {
     /** Returns the number of items in the collection. */
     int size();
 
-    /** Returns an array containing all of the elements in this collection. */
+    /** Returns an array containing all the elements in this collection. */
     int[] toIntArray();
 }
